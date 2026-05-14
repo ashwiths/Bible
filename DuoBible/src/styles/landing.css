@@ -1,0 +1,181 @@
+/* ============================================
+   DUOBIBLE - LANDING PAGE
+   Cinematic fullscreen hero
+   ============================================ */
+
+.landing-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+}
+
+/* --- Background image layer --- */
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/ashil_1.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.35);
+  transform: scale(1.08);
+  animation: breathe 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Deep cinematic gradient overlay */
+.landing-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 30%, rgba(212,175,55,0.08) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, transparent 40%, rgba(5,5,5,0.7) 100%);
+}
+
+/* --- Content --- */
+.landing-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.landing-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0; /* animated in by anime.js */
+}
+
+.landing-title {
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 18vw, 18rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 80px rgba(212, 175, 55, 0.25);
+  opacity: 0; /* animated in */
+}
+
+.landing-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  opacity: 0; /* animated in */
+}
+
+/* --- Explore Button --- */
+.landing-btn-wrapper {
+  margin-top: 1rem;
+  opacity: 0; /* animated in */
+}
+
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--bg-primary);
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 1rem 2.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color var(--transition-med), transform var(--transition-fast);
+  box-shadow: 0 0 30px rgba(212,175,55,0.35), 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.explore-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--transition-fast);
+}
+
+.explore-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 60px rgba(212,175,55,0.5), 0 12px 40px rgba(0,0,0,0.5);
+}
+
+.explore-btn:hover::after {
+  background: rgba(255,255,255,0.1);
+}
+
+.explore-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform var(--transition-fast);
+}
+
+.explore-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* --- Scroll hint --- */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease 3s forwards;
+}
+
+.scroll-hint span {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* --- Navbar overlay on landing --- */
+.landing-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.landing-logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}

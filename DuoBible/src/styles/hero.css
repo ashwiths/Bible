@@ -1,0 +1,170 @@
+:root {
+  --link: rgb(255, 255, 255);
+}
+
+.parallax {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.parallax .layer {
+  position: absolute;
+  width: 100%;
+  /* Make the image 150% taller than the container so it has room to translate */
+  height: 150%; 
+  top: -25%; /* Shift it up so the extra height is balanced top and bottom */
+  background-position: center center;
+  background-size: cover;
+  z-index: -1;
+  background-image: url('../assets/ashil_1.jpg'); 
+  will-change: transform;
+}
+
+.hero-text-overlay {
+  /* Perfect centering: absolute position + transform is the professional way */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 5;
+  color: #fff;
+  width: 100%;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.hero-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(5rem, 12vw, 12rem); 
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  margin: 0;
+  line-height: 1;
+}
+
+.subtitle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: clamp(1rem, 3vw, 1.5rem);
+}
+
+.hero-subtitle {
+  font-family: 'Futura', system-ui, sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2.5rem);
+  letter-spacing: 0.4em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  margin: 0; /* Margin moved to wrapper */
+}
+
+/* 
+  Translated Pure CSS from your Tailwind snippet 
+*/
+.explore-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  background-color: #f9fafb;
+  color: #1f2937;
+  border: 2px solid #f9fafb;
+  border-radius: 9999px;
+  padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1.5rem, 5vw, 2.5rem);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  isolation: isolate;
+  /* Reset button defaults */
+  outline: none;
+}
+
+.explore-btn::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #10b981; /* emerald-500 */
+  left: -100%;
+  border-radius: 50%;
+  z-index: -1;
+  transition: all 0.7s ease;
+}
+
+.explore-btn:hover {
+  color: #f9fafb;
+}
+
+.explore-btn:hover::before {
+  left: 0;
+  transform: scale(1.5);
+}
+
+.explore-btn svg {
+  width: clamp(2rem, 6vw, 3rem);
+  height: clamp(2rem, 6vw, 3rem);
+  padding: clamp(0.4rem, 1vw, 0.6rem);
+  border: 1px solid #374151;
+  border-radius: 50%;
+  fill: #1f2937;
+  transform: rotate(45deg);
+  transition: all 0.3s linear;
+}
+
+.explore-btn:hover svg {
+  transform: rotate(90deg);
+  background-color: #f9fafb;
+  border-color: transparent;
+  fill: #1f2937;
+}
+
+.content {
+  background-color: #080808; 
+  position: relative;
+  z-index: 5; 
+  display: grid;
+  place-items: center;
+  gap: 3rem;
+  padding: 5rem 2rem;
+  min-height: 100vh;
+  box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
+}
+
+.content .info {
+  width: min(90vw, 1000px);
+  font-family: 'Futura', system-ui, sans-serif;
+  font-size: 1.5rem;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+}
+
+.content .info h1 {
+  font-size: 3rem;
+  color: #fff;
+  letter-spacing: 4px;
+}
+
+.content footer {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 3rem;
+  color: #666;
+}

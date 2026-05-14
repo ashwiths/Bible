@@ -1,0 +1,150 @@
+/* ============================================
+   DUOBIBLE - GLOBAL STYLES
+   Design tokens, resets, and base typography
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* --- CSS Variables / Design Tokens --- */
+:root {
+  --bg-primary:      transparent;
+  --bg-secondary:    rgba(255, 255, 255, 0.4);
+  --bg-card:         rgba(255, 255, 255, 0.6);
+  --bg-glass:        rgba(255, 255, 255, 0.5);
+
+  --gold:            #d4af37;
+  --gold-light:      #f0d060;
+  --gold-dim:        rgba(212, 175, 55, 0.15);
+  --gold-border:     rgba(212, 175, 55, 0.3);
+
+  --text-primary:    #111111;
+  --text-secondary:  rgba(17, 17, 17, 0.7);
+  --text-muted:      rgba(17, 17, 17, 0.5);
+
+  --font-serif:      'Cormorant Garamond', Georgia, serif;
+  --font-sans:       'Inter', system-ui, sans-serif;
+  --font-reading:    'Crimson Pro', Georgia, serif;
+
+  --radius-sm:       8px;
+  --radius-md:       16px;
+  --radius-lg:       24px;
+  --radius-full:     9999px;
+
+  --shadow-gold:     0 0 40px rgba(212, 175, 55, 0.15);
+  --shadow-deep:     0 20px 60px rgba(0, 0, 0, 0.6);
+
+  --transition-fast: 0.2s ease;
+  --transition-med:  0.4s ease;
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: #f7f9fa; /* Light airy background */
+  background-image: url('../assets/sky_1.jpg'); /* Use the watercolor sky everywhere! */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #1a1a1a;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-border);
+  border-radius: var(--radius-full);
+}
+
+/* --- Page Transition Wrapper --- */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.page-exit {
+  opacity: 1;
+}
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* --- Utility Classes --- */
+.gold-text {
+  color: var(--gold);
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.glass-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}

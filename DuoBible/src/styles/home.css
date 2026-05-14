@@ -1,0 +1,195 @@
+/* ============================================
+   DUOBIBLE - HOME PAGE
+   ============================================ */
+
+.home-wrapper {
+  min-height: 100vh;
+  background-image: url('../assets/sky_1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #1a1a1a;
+}
+
+/* --- Welcome Banner --- */
+.welcome-banner {
+  padding: 8rem 0 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-greeting {
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: #b8860b; /* Darker gold */
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.welcome-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  color: #111;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+.welcome-sub {
+  font-size: 1.1rem;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+/* --- Section base --- */
+.home-section {
+  padding: 6rem 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.section-label {
+  color: #b8860b !important;
+  font-weight: 700 !important;
+}
+
+.section-title {
+  color: #111 !important;
+}
+
+/* --- Daily Verse --- */
+.daily-verse-section {
+  padding: 4rem 0;
+  background: transparent;
+}
+
+/* Override daily verse card for full background mode */
+.daily-verse-card {
+  background: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- Cards Grid --- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.verse-card {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  color: #1a1a1a !important;
+}
+
+.verse-text {
+  color: #222 !important;
+}
+
+.verse-book {
+  color: #b8860b !important;
+}
+
+/* --- Reading Plans --- */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  transition: all var(--transition-med);
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+.plan-card:hover {
+  border-color: #b8860b;
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.plan-title {
+  color: #111;
+}
+
+.plan-desc {
+  color: #444;
+}
+
+.plan-progress-bar {
+  background: rgba(0,0,0,0.1);
+}
+
+/* --- Inspirational Quote --- */
+.quote-section {
+  padding: 8rem 0;
+  text-align: center;
+}
+
+.quote-text {
+  color: #111;
+  font-weight: 500;
+}
+
+.quote-ref {
+  color: #b8860b;
+  font-weight: 700;
+}
+
+/* --- Prayer section --- */
+.prayer-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  color: #1a1a1a;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.prayer-title {
+  color: #111;
+}
+
+.prayer-text {
+  color: #333;
+}
+
+/* --- Language Toggle --- */
+.lang-toggle {
+  background: rgba(0,0,0,0.05) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+.lang-btn {
+  color: #666 !important;
+}
+
+.lang-btn.active {
+  background: #b8860b !important;
+  color: #fff !important;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .plans-grid  { grid-template-columns: 1fr; }
+  .welcome-banner { padding: 6rem 0 4rem; }
+}
