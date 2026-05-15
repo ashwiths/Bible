@@ -338,7 +338,7 @@ const ReadBible = () => {
   const [activeNote, setActiveNote] = useState(null);
   const [noteDraft, setNoteDraft] = useState('');
   const [mode, setMode] = useState('light');
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(() => window.innerWidth > 900);
   const [focus, setFocus] = useState(false);
   const [pct, setPct] = useState(0);
 
