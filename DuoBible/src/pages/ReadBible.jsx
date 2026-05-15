@@ -540,8 +540,14 @@ const ReadBible = () => {
               <span className="rp-back-icon">←</span>
               <span className="rp-back-text">Back</span>
             </button>
-            <div className="rp-hdr-center">
-              <h1 className="rp-title">{getBookName(selectedBook)}</h1>
+            <div className="rp-hdr-center" 
+              onClick={() => setSidebar(p => !p)} 
+              style={{ cursor: 'pointer' }} 
+              title="Click to change book"
+            >
+              <h1 className="rp-title">
+                {getBookName(selectedBook)} <span className="rp-title-caret">▾</span>
+              </h1>
               <p className="rp-sub">Chapter {selectedChapter} &nbsp;·&nbsp; {pct}% read</p>
             </div>
             <div className="rp-controls">

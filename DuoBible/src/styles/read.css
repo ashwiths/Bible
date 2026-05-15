@@ -360,6 +360,14 @@
   letter-spacing: 0.01em;
 }
 
+.rp-title-caret {
+  display: none;
+  font-size: 0.6em;
+  opacity: 0.6;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+}
+
 .rp-sub {
   font: 600 0.72rem/1 'Inter', sans-serif;
   letter-spacing: 0.24em;
@@ -1855,6 +1863,10 @@
 
   .rp-title {
     font-size: 1.2rem;
+  }
+
+  .rp-title-caret {
+    display: inline;
   }
 
   .rp-verse {
