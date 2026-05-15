@@ -119,11 +119,23 @@
   gap: 1.5rem;
   z-index: 999;
   transform: translateY(-100%);
-  transition: transform var(--transition-med);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform var(--transition-med), opacity var(--transition-med), visibility var(--transition-med);
 }
 
 .mobile-menu.open {
   transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (min-width: 769px) {
+  .mobile-menu {
+    display: none !important;
+  }
 }
 
 @media (max-width: 768px) {
