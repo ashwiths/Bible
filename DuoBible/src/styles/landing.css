@@ -18,22 +18,22 @@
 .landing-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../assets/ashil_1.jpg');
+  background-image: url('../assets/hero_bg.png');
   background-size: cover;
-  background-position: center;
-  filter: brightness(0.35);
-  transform: scale(1.08);
-  animation: breathe 12s ease-in-out infinite;
+  background-position: center 30%;
+  filter: brightness(0.75);
+  transform: scale(1.05);
+  animation: breathe 14s ease-in-out infinite;
   will-change: transform;
 }
 
-/* Deep cinematic gradient overlay */
+/* Warm cinematic gradient overlay */
 .landing-overlay {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(ellipse at 50% 30%, rgba(212,175,55,0.08) 0%, transparent 70%),
-    linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, transparent 40%, rgba(5,5,5,0.7) 100%);
+    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.25) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.5) 100%);
 }
 
 /* --- Content --- */
@@ -44,7 +44,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
+  padding: 0 2rem;
 }
 
 .landing-label {
@@ -52,35 +53,37 @@
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.4em;
-  color: var(--gold);
+  color: rgba(255, 220, 130, 0.9);
   text-transform: uppercase;
   opacity: 0; /* animated in by anime.js */
 }
 
 .landing-title {
-  font-family: var(--font-serif);
-  font-size: clamp(6rem, 18vw, 18rem);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.2em;
   color: #fff;
-  text-shadow: 0 0 80px rgba(212, 175, 55, 0.25);
+  text-shadow: 
+    0 2px 20px rgba(0,0,0,0.4),
+    0 0 60px rgba(212, 175, 55, 0.3);
   opacity: 0; /* animated in */
 }
 
 .landing-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  font-weight: 300;
-  letter-spacing: 0.5em;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
   opacity: 0; /* animated in */
 }
 
 /* --- Explore Button --- */
 .landing-btn-wrapper {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   opacity: 0; /* animated in */
 }
 
@@ -92,16 +95,16 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--bg-primary);
-  background: var(--gold);
+  color: #111;
+  background: #d4af37;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: 100px;
   padding: 1rem 2.5rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: color var(--transition-med), transform var(--transition-fast);
-  box-shadow: 0 0 30px rgba(212,175,55,0.35), 0 8px 30px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 8px 30px rgba(0,0,0,0.3);
 }
 
 .explore-btn::after {
@@ -109,22 +112,22 @@
   position: absolute;
   inset: 0;
   background: rgba(255,255,255,0);
-  transition: background var(--transition-fast);
+  transition: background 0.2s ease;
 }
 
 .explore-btn:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 0 60px rgba(212,175,55,0.5), 0 12px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 0 50px rgba(212,175,55,0.55), 0 12px 40px rgba(0,0,0,0.4);
 }
 
 .explore-btn:hover::after {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
 }
 
 .explore-btn svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  transition: transform var(--transition-fast);
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.2s ease;
 }
 
 .explore-btn:hover svg {

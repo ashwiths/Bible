@@ -129,7 +129,7 @@ const About = () => {
             <div className="prayer-card" style={{ maxWidth: '500px', margin: '0 auto' }}>
               <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>✝️</div>
               <p className="section-label" style={{ marginBottom: '0.5rem' }}>Project Creator</p>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '3rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>Caren</h2>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '3rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>Infant Ashil A</h2>
               <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.9 }}>
                 Dedicated to building a modern, bilingual platform<br />
                 to share the Word of God with the world.<br />

@@ -2,7 +2,7 @@
 // ─────────────────────────────────────────────────────
 // ROUTE MAP:
 //   "/"      → Original landing (PraiseSection + JesusParallax)
-//              PRAISE THE LORD scroll animation → BIBLE CHANGES EVERYTHING
+//              PRAISE THE LORD scroll animation → BIBLE CHANGE
 //              Click Explore → fades to /home
 //   "/home"  → New premium Home dashboard
 //   "/read"  → Bible reading interface
@@ -29,6 +29,7 @@ import NotFound     from './pages/NotFound';
 // Global styles
 import './styles/global.css';
 import './styles/animations.css';
+import './styles/responsive.css';
 
 // The original landing design: PraiseSection on top, JesusParallax below
 // JesusParallax has the Explore button wired to navigate('/home')

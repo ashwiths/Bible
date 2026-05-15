@@ -6,141 +6,168 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden; 
+  overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .parallax .layer {
   position: absolute;
   width: 100%;
   /* Make the image 150% taller than the container so it has room to translate */
-  height: 150%; 
-  top: -25%; /* Shift it up so the extra height is balanced top and bottom */
+  height: 150%;
+  top: -25%;
+  /* Shift it up so the extra height is balanced top and bottom */
   background-position: center center;
   background-size: cover;
   z-index: -1;
-  background-image: url('../assets/ashil_1.jpg'); 
+  background-image: url('../assets/hero_bg.png');
   will-change: transform;
 }
 
 .hero-text-overlay {
-  /* Perfect centering: absolute position + transform is the professional way */
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  top: 48%;
+  left: 7%;
+  transform: translateY(-50%);
+  text-align: left;
   z-index: 5;
-  color: #fff;
-  width: 100%;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.6);
+  color: #1a1a1a;
+  width: 42%;
+  text-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Thin gold accent line above title */
+.hero-text-overlay::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  background: #d4af37;
+  margin-bottom: 1.5rem;
 }
 
 .hero-title {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: clamp(5rem, 12vw, 12rem); 
-  font-weight: bold;
-  letter-spacing: 0.12em;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 300;
+  letter-spacing: 0.28em;
   margin: 0;
   line-height: 1;
+  color: #1a1a1a;
 }
 
 .subtitle-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1rem, 3vw, 2rem);
-  margin-top: clamp(1rem, 3vw, 1.5rem);
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.8rem;
+  margin-top: 1.6rem;
 }
 
 .hero-subtitle {
-  font-family: 'Futura', system-ui, sans-serif;
-  font-size: clamp(1.2rem, 3vw, 2.5rem);
-  letter-spacing: 0.4em;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.55em;
   font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-  margin: 0; /* Margin moved to wrapper */
+  color: #555;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-/* 
-  Translated Pure CSS from your Tailwind snippet 
-*/
+/* ── Explore CTA — Luxury Gold Button ── */
+@keyframes gold-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4), 0 6px 24px rgba(212, 175, 55, 0.25);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, 0), 0 6px 24px rgba(212, 175, 55, 0.25);
+  }
+}
+
 .explore-btn {
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  gap: clamp(0.5rem, 2vw, 1rem);
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
-  font-family: system-ui, sans-serif;
-  font-weight: 600;
-  background-color: #f9fafb;
-  color: #1f2937;
-  border: 2px solid #f9fafb;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #d4af37 0%, #f0cf6e 50%, #c9a227 100%);
+  color: #1a1100;
+  border: none;
   border-radius: 9999px;
-  padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1.5rem, 5vw, 2.5rem);
+  padding: 0.85rem 2.2rem;
   position: relative;
   z-index: 10;
-  overflow: hidden;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: color 0.3s ease;
-  isolation: isolate;
-  /* Reset button defaults */
   outline: none;
+  box-shadow:
+    0 6px 24px rgba(212, 175, 55, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: gold-pulse 2.8s ease-in-out infinite;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
-.explore-btn::before {
+/* Subtle inner sheen overlay */
+.explore-btn::after {
   content: '';
   position: absolute;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-color: #10b981; /* emerald-500 */
-  left: -100%;
-  border-radius: 50%;
-  z-index: -1;
-  transition: all 0.7s ease;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 60%);
+  pointer-events: none;
 }
 
 .explore-btn:hover {
-  color: #f9fafb;
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #e0be4a 0%, #f5d878 50%, #d4af37 100%);
+  box-shadow:
+    0 12px 36px rgba(212, 175, 55, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  animation: none;
 }
 
-.explore-btn:hover::before {
-  left: 0;
-  transform: scale(1.5);
+.explore-btn:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 .explore-btn svg {
-  width: clamp(2rem, 6vw, 3rem);
-  height: clamp(2rem, 6vw, 3rem);
-  padding: clamp(0.4rem, 1vw, 0.6rem);
-  border: 1px solid #374151;
-  border-radius: 50%;
-  fill: #1f2937;
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: #1a1100;
   transform: rotate(45deg);
-  transition: all 0.3s linear;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
 }
 
 .explore-btn:hover svg {
-  transform: rotate(90deg);
-  background-color: #f9fafb;
-  border-color: transparent;
-  fill: #1f2937;
+  transform: rotate(0deg) translateX(3px);
 }
 
 .content {
-  background-color: #080808; 
+  background-color: #080808;
   position: relative;
-  z-index: 5; 
+  z-index: 5;
   display: grid;
   place-items: center;
   gap: 3rem;
   padding: 5rem 2rem;
   min-height: 100vh;
-  box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .content .info {

@@ -1,0 +1,605 @@
+/* ============================================================
+   DUOBIBLE — RESPONSIVE STYLES
+   Full mobile responsiveness across ALL pages and components
+   Breakpoints: 320 | 480 | 768 | 1024 | 1440
+   ============================================================ */
+
+/* ── PREVENT HORIZONTAL SCROLL GLOBALLY ── */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ============================================================
+   LARGE SCREENS (1440px+)
+   ============================================================ */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+
+  .welcome-title {
+    font-size: 8rem;
+  }
+
+  .read-main {
+    max-width: 900px;
+    padding: 4rem;
+  }
+}
+
+/* ============================================================
+   TABLETS & SMALL LAPTOPS (max-width: 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* Container */
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  /* Navbar */
+  .navbar {
+    padding: 1rem 2rem;
+  }
+  .navbar.scrolled {
+    padding: 0.75rem 2rem;
+  }
+
+  /* Hero section */
+  .hero-text-overlay {
+    left: 6%;
+    width: 55%;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+  }
+
+  /* Home page */
+  .welcome-banner {
+    padding: 7rem 0 4rem;
+  }
+
+  .welcome-title {
+    font-size: clamp(3rem, 6vw, 6rem);
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  .plans-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  /* Read Bible sidebar */
+  .read-sidebar {
+    width: 240px;
+    min-width: 240px;
+  }
+
+  .read-main {
+    padding: 2.5rem 2rem;
+  }
+
+  /* Landing page nav */
+  .landing-nav {
+    padding: 1.5rem 2rem;
+  }
+
+  /* Daily verse card */
+  .daily-verse-card {
+    padding: 3rem 2rem;
+  }
+}
+
+/* ============================================================
+   TABLETS (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* ── Container ── */
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    padding: 0.85rem 1.25rem;
+  }
+  .navbar.scrolled {
+    padding: 0.65rem 1.25rem;
+  }
+  .navbar-links {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+
+  /* ── Landing page ── */
+  .landing-nav {
+    padding: 1.25rem 1.5rem;
+  }
+  .landing-logo {
+    font-size: 1.2rem;
+  }
+
+  /* ── Hero (JesusParallax) ── */
+  .hero-text-overlay {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 88%;
+    text-align: center;
+  }
+  .hero-text-overlay::before {
+    margin: 0 auto 1.25rem;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 9vw, 4.5rem);
+    letter-spacing: 0.2em;
+  }
+  .subtitle-wrapper {
+    align-items: center;
+  }
+  .hero-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+  }
+  .explore-btn--topright {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.72rem;
+  }
+
+  /* ── Home page ── */
+  .welcome-banner {
+    padding: 5.5rem 0 3rem;
+  }
+  .welcome-title {
+    font-size: clamp(2.5rem, 9vw, 4.5rem);
+  }
+  .welcome-sub {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  .home-section {
+    padding: 4rem 0;
+  }
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .plans-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .plan-card {
+    padding: 2rem 1.5rem;
+  }
+  .quote-section {
+    padding: 5rem 0;
+  }
+  .prayer-card {
+    padding: 2rem 1.5rem;
+  }
+
+  /* ── Daily Verse Card ── */
+  .daily-verse-card {
+    padding: 2rem 1.25rem;
+    border-radius: var(--radius-md);
+  }
+  .daily-text {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+  }
+
+  /* ── Read Bible ── */
+  .read-wrapper {
+    flex-direction: column;
+  }
+  .read-sidebar {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    position: static;
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+  .read-main {
+    padding: 1.5rem 1.25rem;
+    max-width: 100%;
+  }
+  .read-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .read-book-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+  .chapter-selector {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chapter-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .verse-body {
+    font-size: 1.1rem;
+  }
+  .verse-tamil {
+    font-size: 0.95rem;
+  }
+
+  /* ── Language Dropdown ── */
+  .lang-trigger {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  .lang-menu {
+    min-width: 190px;
+    left: auto;
+    right: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  .lang-menu.open {
+    transform: translateY(0) scale(1);
+  }
+
+  /* ── Footer ── */
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
+  .footer-social-links {
+    justify-content: center;
+  }
+
+  /* ── Parallax content section ── */
+  .content {
+    padding: 4rem 1.25rem;
+  }
+  .content .info {
+    font-size: 1.2rem;
+    gap: 2rem;
+  }
+  .content .info h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+}
+
+/* ============================================================
+   MOBILE PHONES (max-width: 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  /* ── Container ── */
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* ── Hero section ── */
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+    letter-spacing: 0.18em;
+  }
+  .hero-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+  }
+  .explore-btn {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+  .explore-btn--topright {
+    display: none; /* hide top-right btn on very small screens */
+  }
+
+  /* ── Home page ── */
+  .welcome-title {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+  .welcome-greeting {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+  }
+  .welcome-sub {
+    font-size: 0.95rem;
+  }
+  .home-section {
+    padding: 3rem 0;
+  }
+  .daily-verse-card {
+    padding: 1.75rem 1rem;
+  }
+  .daily-date {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+  .daily-text {
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+  }
+  .plan-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .prayer-card {
+    padding: 1.75rem 1.25rem;
+  }
+  .quote-section {
+    padding: 3.5rem 0;
+  }
+
+  /* ── Read Bible ── */
+  .read-main {
+    padding: 1.25rem 1rem;
+  }
+  .read-book-title {
+    font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+  .verse-line {
+    gap: 0.75rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .verse-body {
+    font-size: 1rem;
+  }
+  .verse-tamil {
+    font-size: 0.9rem;
+  }
+  .chapter-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* ── Sidebar ── */
+  .read-sidebar {
+    max-height: 38vh;
+  }
+  .sidebar-title {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  .book-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  /* ── Landing nav ── */
+  .landing-nav {
+    padding: 1rem;
+  }
+  .landing-logo {
+    font-size: 1.1rem;
+  }
+
+  /* ── Content section (below hero) ── */
+  .content {
+    padding: 3rem 1rem;
+  }
+  .content .info {
+    font-size: 1.1rem;
+    gap: 1.5rem;
+  }
+  .content .info h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+  }
+
+  /* ── Footer ── */
+  .dev-name {
+    font-size: 1.5rem;
+  }
+  .footer-minimal {
+    padding: 2rem 0;
+  }
+}
+
+/* ============================================================
+   VERY SMALL PHONES (max-width: 320px)
+   ============================================================ */
+@media (max-width: 320px) {
+  .hero-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.12em;
+  }
+  .welcome-title {
+    font-size: 2rem;
+  }
+  .explore-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+  }
+  .read-main {
+    padding: 1rem 0.75rem;
+  }
+  .verse-body {
+    font-size: 0.95rem;
+  }
+  .plan-card,
+  .prayer-card {
+    padding: 1.25rem 1rem;
+  }
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+/* ============================================================
+   BOOK FLIP RESPONSIVENESS
+   ============================================================ */
+@media (max-width: 1024px) {
+  .flip-book-container {
+    transform: scale(0.85);
+    transform-origin: center top;
+  }
+}
+
+@media (max-width: 768px) {
+  .flip-book-container {
+    transform: scale(0.65);
+    transform-origin: center top;
+    margin-bottom: -15vh;
+  }
+  .book-flip-page {
+    width: 100vw !important;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .flip-book-container {
+    transform: scale(0.45);
+    transform-origin: center top;
+    margin-bottom: -30vh;
+  }
+}
+
+/* ============================================================
+   TOUCH-FRIENDLY INTERACTIONS
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .nav-link {
+    padding: 0.5rem 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .book-item {
+    min-height: 48px;
+  }
+  .chapter-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .explore-btn {
+    min-height: 48px;
+    padding: 0.85rem 2rem;
+  }
+  .social-circle {
+    width: 44px;
+    height: 44px;
+  }
+  /* Remove hover effects that don't work on touch */
+  .verse-card:hover {
+    transform: none;
+  }
+  .plan-card:hover {
+    transform: none;
+  }
+  .explore-btn:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   PARALLAX DISABLE ON MOBILE (performance)
+   ============================================================ */
+@media (max-width: 768px) {
+  .parallax .layer {
+    background-attachment: scroll;
+    height: 100%;
+    top: 0;
+    transform: none !important;
+  }
+  body {
+    background-attachment: scroll;
+  }
+  .home-wrapper {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================================
+   DAILY DISCOVERY GRID (Home page)
+   ============================================================ */
+@media (max-width: 768px) {
+  .discovery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  .discovery-card {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .discovery-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .discovery-card {
+    height: 180px !important;
+  }
+}
+
+/* ============================================================
+   READ BIBLE SIDEBAR — MOBILE DRAWER
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Sidebar scroll indicator */
+  .read-sidebar::after {
+    content: '▼ scroll for more books';
+    display: block;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Verse sidebar/nav */
+  .verse-nav-sidebar {
+    width: 100% !important;
+    max-height: 200px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+}
+
+/* ============================================================
+   ABOUT PAGE RESPONSIVENESS
+   ============================================================ */
+@media (max-width: 768px) {
+  .about-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .about-hero h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    padding: 6rem 1rem 3rem !important;
+  }
+  .about-hero h1 {
+    font-size: clamp(1.8rem, 10vw, 3rem) !important;
+  }
+}

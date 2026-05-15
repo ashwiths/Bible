@@ -92,20 +92,6 @@ const Landing = () => {
 
       {/* --- HERO CONTENT --- */}
       <div className="landing-content">
-        {/* Small label above the title */}
-        <p className="landing-label" ref={labelRef} aria-hidden="true">
-          ✦ &nbsp; The Holy Bible &nbsp; ✦
-        </p>
-
-        {/* BIG TITLE — animated by Anime.js */}
-        <h1 className="landing-title" ref={titleRef}>
-          BIBLE
-        </h1>
-
-        {/* Subtitle */}
-        <p className="landing-subtitle" ref={subtitleRef}>
-          Changes Everything
-        </p>
 
         {/* EXPLORE BUTTON — navigates to /home */}
         <div className="landing-btn-wrapper" ref={btnRef}>
@@ -114,6 +100,7 @@ const Landing = () => {
             className="explore-btn"
             onClick={handleExplore}
             aria-label="Explore DuoBible — Enter the reading platform"
+            style={{ background: '#d4af37', color: '#111', padding: '0.8rem 2.2rem', fontSize: '0.9rem' }}
           >
             Explore
             {/* Right arrow icon */}

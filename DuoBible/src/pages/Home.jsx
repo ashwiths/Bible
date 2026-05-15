@@ -42,19 +42,82 @@ const Home = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2} style={{ marginTop: '5rem' }}>
-            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-              <button
-                id="start-reading-btn"
-                className="nav-cta"
-                onClick={() => navigate('/read')}
-                style={{ fontSize: '0.85rem', padding: '0.9rem 2.5rem', fontWeight: 700, letterSpacing: '0.1em' }}
-                aria-label="Start reading the Bible"
-              >
-                START READING
-              </button>
+          <ScrollReveal delay={0.2} style={{ marginTop: '3rem', textAlign: 'center' }}>
+            <button
+              id="start-reading-btn"
+              className="nav-cta"
+              onClick={() => navigate('/read')}
+              style={{ fontSize: '0.85rem', padding: '0.9rem 2.5rem', fontWeight: 700, letterSpacing: '0.1em' }}
+              aria-label="Start reading the Bible"
+            >
+              START READING
+            </button>
+          </ScrollReveal>
+        </div>
+
+        {/* ─── Daily Discovery ─── */}
+        <div className="container" style={{ marginTop: '4rem' }}>
+          <ScrollReveal>
+            <div className="section-header">
+              <p className="section-label">Explore</p>
+              <h2 className="section-title">Daily Discovery</h2>
             </div>
           </ScrollReveal>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1.5rem',
+            padding: '1rem 0 3rem',
+          }}>
+            {[
+              { title: 'The Good Shepherd', sub: 'Find rest in the valley of peace', img: '/src/assets/hero_bg.png', tag: 'Devotion' },
+              { title: 'Pathway to Life', sub: 'Explore the narrow road to truth', img: '/src/assets/daily2.jpg', tag: 'History' },
+              { title: 'Abundant Grace', sub: 'Bask in the warmth of His love', img: '/src/assets/daily3.jpg', tag: 'Meditation' },
+            ].map((item, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div
+                  className="glass-card"
+                  style={{
+                    width: '100%',
+                    height: '380px',
+                    padding: 0,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    borderRadius: '24px',
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                  }}
+                  onClick={() => navigate('/read')}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03) translateY(-4px)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1) translateY(0)'}
+                >
+                  <img src={item.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0, left: 0, right: 0,
+                    padding: '2rem',
+                    background: 'linear-gradient(to top, rgba(255,255,255,0.95) 55%, transparent)',
+                  }}>
+                    <span style={{
+                      fontSize: '0.62rem',
+                      fontWeight: 800,
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      color: 'var(--gold)',
+                      background: 'rgba(212,175,55,0.1)',
+                      padding: '0.35rem 0.7rem',
+                      borderRadius: '4px',
+                      display: 'inline-block',
+                      marginBottom: '0.75rem',
+                    }}>{item.tag}</span>
+                    <h3 style={{ fontSize: '1.4rem', color: '#111', marginBottom: '0.4rem', fontFamily: 'var(--font-serif)' }}>{item.title}</h3>
+                    <p style={{ fontSize: '0.85rem', color: '#555', lineHeight: 1.5 }}>{item.sub}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -63,15 +126,7 @@ const Home = () => {
         <DailyVerse language={language} />
       </ScrollReveal>
 
-      {/* ─────────────── 3. LANGUAGE TOGGLE ─────────────── */}
-      <section className="home-section" id="language-toggle" style={{ padding: '2.5rem 0', textAlign: 'center' }}>
-        <div className="container">
-          <ScrollReveal>
-            <p className="section-label">Display Language</p>
-            <LanguageToggle language={language} onChange={setLanguage} />
-          </ScrollReveal>
-        </div>
-      </section>
+
 
 
       {/* ─────────────── 5. FEATURED SCRIPTURE CARDS ─────────────── */}
