@@ -1862,6 +1862,22 @@
     /* Reset padding since actions are hidden */
   }
 
+  .rp-icon-btn {
+    display: none;
+  }
+
+  .rp-back-text {
+    display: none;
+  }
+
+  .rp-back-btn {
+    padding: 0.5rem;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
   .rp-vacts {
     display: none;
   }
