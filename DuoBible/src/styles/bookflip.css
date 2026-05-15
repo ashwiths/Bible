@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-serif);
   padding: 1rem;
 }
 
@@ -39,7 +39,7 @@
   border: 2px solid var(--gold);
   border-radius: 100px;
   padding: 0.6rem 1.4rem;
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 1.1rem;
   font-weight: 800;
   color: #111;
@@ -68,7 +68,7 @@
 }
 
 .bf-select {
-  font: 700 1.15rem/1 'Cormorant Garamond', serif;
+  font: 700 1.15rem/1 var(--font-serif);
   color: var(--gold);
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(4px);
@@ -123,7 +123,7 @@
 }
 
 .bf-ch-label {
-  font: 700 1.25rem/1 'Cormorant Garamond', serif;
+  font: 700 1.25rem/1 var(--font-serif);
   color: var(--gold);
   letter-spacing: 0.04em;
   min-width: 100px;
@@ -368,7 +368,7 @@
   justify-content: center;
   background: rgba(245, 245, 245, 0.82);
   backdrop-filter: blur(4px);
-  font: 400 1rem/1 'Cormorant Garamond', serif;
+  font: 400 1rem/1 var(--font-serif);
   color: var(--dark-text);
   letter-spacing: 0.06em;
   animation: bf-pulse 1.4s infinite;
@@ -403,7 +403,7 @@
 }
 
 .bfp-chaphead {
-  font: 600 calc(var(--base-size) * 0.72)/1 'Cormorant Garamond', serif;
+  font: 600 calc(var(--base-size) * 0.72)/1 var(--font-serif);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--dark-text);
@@ -440,7 +440,7 @@
 }
 
 .bfp-verse {
-  font-family: 'Cormorant Garamond', serif, sans-serif;
+  font-family: var(--font-serif);
   font-size: calc(var(--base-size) * 1);
   line-height: 1.8;
   font-weight: 400;
@@ -487,7 +487,7 @@
 }
 
 .page__content-author {
-  font: 300 calc(var(--base-size) * 1.15)/1 'Cormorant Garamond', serif;
+  font: 300 calc(var(--base-size) * 1.15)/1 var(--font-serif);
   text-transform: uppercase;
   color: var(--dark-text);
   border-top: 1px solid var(--dark-text);
@@ -498,7 +498,7 @@
 }
 
 .page__content-credits {
-  font: 400 calc(var(--base-size) * 0.78)/1 'Cormorant Garamond', serif;
+  font: 400 calc(var(--base-size) * 0.78)/1 var(--font-serif);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: calc(var(--baseline) * 2);
@@ -517,7 +517,7 @@
   width: calc(100% - var(--baseline) * 2);
   bottom: calc(var(--baseline) * 2.5);
   left: var(--baseline);
-  font: 400 calc(var(--base-size) * 0.72)/1 'Cormorant Garamond', serif;
+  font: 400 calc(var(--base-size) * 0.72)/1 var(--font-serif);
   text-transform: uppercase;
   color: var(--dark-text);
   opacity: 0.55;
@@ -530,7 +530,7 @@
   bottom: var(--baseline);
   left: 50%;
   transform: translateX(-50%);
-  font: 400 calc(var(--base-size) * 0.72)/1 'Cormorant Garamond', serif;
+  font: 400 calc(var(--base-size) * 0.72)/1 var(--font-serif);
   color: var(--dark-text);
   opacity: 0.38;
 }
@@ -549,7 +549,7 @@
   border: 1px solid var(--gold);
   border-radius: 100px;
   padding: 0.6rem 1.5rem;
-  font: 700 1.15rem/1 'Cormorant Garamond', serif;
+  font: 700 1.15rem/1 var(--font-serif);
   color: var(--gold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -571,7 +571,7 @@
 }
 
 .bf-nav-info {
-  font: 700 1.15rem/1 'Cormorant Garamond', serif;
+  font: 700 1.15rem/1 var(--font-serif);
   color: var(--gold);
   letter-spacing: 0.06em;
   min-width: 180px;
@@ -582,7 +582,7 @@
 /* ══ HINT ══ */
 .bf-hint {
   margin-top: 1rem;
-  font: 600 1.05rem/1 'Cormorant Garamond', serif;
+  font: 600 1.05rem/1 var(--font-serif);
   color: var(--gold);
   letter-spacing: 0.08em;
   text-transform: uppercase;

@@ -60,7 +60,7 @@
 .rp-bg {
   position: fixed;
   inset: 0;
-  background-image: url('/src/assets/sky_1.jpg');
+  background-image: url('../assets/sky_1.jpg');
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -355,7 +355,7 @@
 }
 
 .rp-title {
-  font: 600 2.1rem/1.1 'Cormorant Garamond', Georgia, serif;
+  font: 600 2.1rem/1.1 var(--font-serif);
   color: var(--txt);
   letter-spacing: 0.01em;
 }
@@ -871,7 +871,7 @@
 }
 
 .rp-ven {
-  font: 500 1.25rem/1.88 'Cormorant Garamond', Georgia, serif;
+  font: 500 1.25rem/1.88 var(--font-serif);
   color: var(--txt);
 }
 
@@ -943,7 +943,7 @@
 }
 
 .rp-empty-t {
-  font: 600 1.8rem/1.2 'Cormorant Garamond', serif;
+  font: 600 1.8rem/1.2 var(--font-serif);
   color: var(--txt);
   margin-bottom: 0.75rem;
 }
@@ -1322,7 +1322,7 @@
 }
 
 .votd-text {
-  font: 500 1.05rem/1.6 'Cormorant Garamond', Georgia, serif;
+  font: 500 1.05rem/1.6 var(--font-serif);
   color: var(--txt);
   margin-bottom: 1rem;
   font-style: italic;
@@ -1507,7 +1507,7 @@
 }
 
 .bm-empty p {
-  font: 600 1.1rem/1.4 'Cormorant Garamond', serif;
+  font: 600 1.1rem/1.4 var(--font-serif);
   color: var(--txt);
   margin-bottom: 0.5rem;
 }
@@ -1566,7 +1566,7 @@
 }
 
 .bm-text {
-  font: 500 1rem/1.6 'Cormorant Garamond', Georgia, serif;
+  font: 500 1rem/1.6 var(--font-serif);
   color: var(--txt);
   font-style: italic;
   opacity: 0.9;
@@ -1665,7 +1665,7 @@
 
 .note-snippet {
   padding: 1rem 1.2rem;
-  font: 500 1.05rem/1.6 'Cormorant Garamond', serif;
+  font: 500 1.05rem/1.6 var(--font-serif);
   color: var(--txt2);
   font-style: italic;
   border-left: 3px solid var(--gold);

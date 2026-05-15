@@ -19,9 +19,9 @@
   --text-secondary: rgba(17, 17, 17, 0.7);
   --text-muted: rgba(17, 17, 17, 0.5);
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-reading: 'Crimson Pro', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', 'Noto Serif Tamil', Georgia, serif;
+  --font-sans: 'Inter', 'Noto Serif Tamil', system-ui, sans-serif;
+  --font-reading: 'Crimson Pro', 'Noto Serif Tamil', Georgia, serif;
 
   --radius-sm: 8px;
   --radius-md: 16px;
