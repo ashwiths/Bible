@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/components.css';
+import bookmarkImg from '../assets/bookmark.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +42,7 @@ const Navbar = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
         >
           <img
-            src="/src/assets/bookmark.png"
+            src={bookmarkImg}
             alt="DuoBible Logo"
             style={{ height: '40px', width: 'auto' }}
           />

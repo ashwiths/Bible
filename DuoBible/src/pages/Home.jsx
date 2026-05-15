@@ -13,6 +13,9 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import { featuredVerses, readingPlans } from '../data/bibleData';
 import '../styles/home.css';
 import '../styles/components.css';
+import heroBgImg from '../assets/hero_bg.png';
+import daily2Img from '../assets/daily2.jpg';
+import daily3Img from '../assets/daily3.jpg';
 
 const Home = () => {
   const navigate  = useNavigate();
@@ -71,9 +74,9 @@ const Home = () => {
             padding: '1rem 0 3rem',
           }}>
             {[
-              { title: 'The Good Shepherd', sub: 'Find rest in the valley of peace', img: '/src/assets/hero_bg.png', tag: 'Devotion' },
-              { title: 'Pathway to Life', sub: 'Explore the narrow road to truth', img: '/src/assets/daily2.jpg', tag: 'History' },
-              { title: 'Abundant Grace', sub: 'Bask in the warmth of His love', img: '/src/assets/daily3.jpg', tag: 'Meditation' },
+              { title: 'The Good Shepherd', sub: 'Find rest in the valley of peace', img: heroBgImg, tag: 'Devotion' },
+              { title: 'Pathway to Life', sub: 'Explore the narrow road to truth', img: daily2Img, tag: 'History' },
+              { title: 'Abundant Grace', sub: 'Bask in the warmth of His love', img: daily3Img, tag: 'Meditation' },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div
