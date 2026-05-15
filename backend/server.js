@@ -24,6 +24,8 @@ app.get('/', (req, res) => {
 
 // API Routes
 app.use('/api/bible', require('./routes/bibleRoutes'));
+app.use('/api/search', require('./routes/searchRoutes'));
+app.use('/api/verseoftheday', require('./routes/votdRoutes'));
 
 // Basic Error Handling Middleware
 app.use((err, req, res, next) => {

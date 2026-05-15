@@ -41,7 +41,6 @@ const LANGS = [
   { k: 'gujarati', l: 'ગુજરાતી', script: 'Gu' },
   { k: 'both', l: 'Bilingual', script: '⇌' },
 ];
-const SEARCH_SUGGESTIONS = ['love', 'faith', 'hope', 'grace', 'peace', 'joy', 'John 3:16', 'Psalm 23', 'Proverbs 3:5'];
 
 /* ── Language Dropdown ── */
 const LanguageDropdown = ({ selectedLanguage, onChange }) => {
@@ -75,11 +74,13 @@ const LanguageDropdown = ({ selectedLanguage, onChange }) => {
   );
 };
 
-/* ── Search Bar with suggestions ── */
-const SearchBar = ({ onSearch, onClear }) => {
+/* ── Search Bar with real-time API suggestions ── */
+const SearchBar = ({ onSelectResult, selectedLanguage }) => {
   const [query, setQuery] = useState('');
   const [focused, setFocused] = useState(false);
   const [showSugg, setShowSugg] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -88,21 +89,53 @@ const SearchBar = ({ onSearch, onClear }) => {
     return () => document.removeEventListener('mousedown', h);
   }, []);
 
-  const submit = (q) => {
-    const val = q || query;
-    if (val.trim()) { onSearch(val.trim()); setQuery(val.trim()); }
-    setShowSugg(false);
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    const delayDebounceFn = setTimeout(async () => {
+      try {
+        const langParam = selectedLanguage === 'both' ? 'english' : selectedLanguage;
+        const res = await fetch(`http://localhost:5000/api/search?q=${encodeURIComponent(query)}&language=${langParam}&limit=12`);
+        if (res.ok) {
+          const data = await res.json();
+          setResults(data.results || []);
+        } else {
+          setResults([]);
+        }
+      } catch (err) {
+        console.error("Search error:", err);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 400); // 400ms debounce
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query, selectedLanguage]);
+
+  const clear = () => { setQuery(''); setResults([]); setShowSugg(false); };
+
+  const handleResultClick = (r) => {
+    const bookKey = r.book.toLowerCase().replace(/\s+/g, "");
+    let actualBookKey = bookKey;
+    const allBooks = [...OT, ...NT];
+    const foundBook = allBooks.find(b => b.english.toLowerCase().replace(/\s+/g, "") === bookKey || b.key === bookKey);
+    if (foundBook) actualBookKey = foundBook.key;
+
+    onSelectResult(actualBookKey, r.chapter, r.verseNumber);
+    clear();
   };
-
-  const clear = () => { setQuery(''); onClear(); setShowSugg(false); };
-
-  const filtered = query ? SEARCH_SUGGESTIONS.filter(s => s.toLowerCase().includes(query.toLowerCase())) : SEARCH_SUGGESTIONS;
 
   return (
     <div className={`search-wrap ${focused ? 'focused' : ''}`} ref={ref}>
-      <form className="search-bar" onSubmit={e => { e.preventDefault(); submit(); }} role="search">
+      <form className="search-bar" onSubmit={e => e.preventDefault()} role="search">
         <span className="search-icon">🔍</span>
-        <input type="text" className="search-input" placeholder="Search verses, books, keywords..."
+        <input type="text" className="search-input" placeholder="Search verses globally..."
           value={query} onChange={e => { setQuery(e.target.value); setShowSugg(true); }}
           onFocus={() => { setFocused(true); setShowSugg(true); }}
           onBlur={() => setFocused(false)}
@@ -111,14 +144,24 @@ const SearchBar = ({ onSearch, onClear }) => {
         />
         {query && <button type="button" className="search-clear" onClick={clear}>✕</button>}
       </form>
-      {showSugg && filtered.length > 0 && (
-        <div className="search-sugg">
-          <p className="search-sugg-label">Suggestions</p>
-          {filtered.slice(0, 6).map(s => (
-            <button key={s} className="search-sugg-item" onMouseDown={() => submit(s)}>
-              <span className="search-sugg-icon">🔍</span>{s}
-            </button>
-          ))}
+      {showSugg && query.trim() && (
+        <div className="search-sugg search-sugg-premium">
+          <p className="search-sugg-label">Global Search Results</p>
+          {loading ? (
+             <div className="search-loading">Searching verses...</div>
+          ) : results.length > 0 ? (
+            results.map((r, i) => (
+              <button key={i} className="search-sugg-item global-result" onMouseDown={() => handleResultClick(r)}>
+                <span className="search-sugg-icon">📖</span>
+                <div className="search-result-content">
+                  <div className="search-result-ref">{r.book} {r.chapter}:{r.verseNumber}</div>
+                  <div className="search-result-text">{r.text.substring(0, 85)}{r.text.length > 85 ? '...' : ''}</div>
+                </div>
+              </button>
+            ))
+          ) : (
+            <div className="search-empty">No matching verses found for "{query}".</div>
+          )}
         </div>
       )}
     </div>
@@ -126,14 +169,16 @@ const SearchBar = ({ onSearch, onClear }) => {
 };
 
 /* ── Single Verse with Bookmark + Glow ── */
-const Verse = ({ verse, idx, selectedLanguage, bookmarks, onBookmark }) => {
+const Verse = ({ verse, idx, selectedLanguage, book, chapter, bookmarks, onBookmark, notes, onEditNote }) => {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
   const [copied, setCopied] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [bmAnim, setBmAnim] = useState(false);
   const verseNum = verse.verseNumber || idx + 1;
-  const bookmarkKey = `${verse.verseNumber}`;
-  const isBookmarked = bookmarks.includes(bookmarkKey);
+  const id = `${book}-${chapter}-${verseNum}`;
+  const isBookmarked = bookmarks.some(b => b.id === id);
+  const hasNote = notes && notes.some(n => n.id === id);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -154,6 +199,14 @@ const Verse = ({ verse, idx, selectedLanguage, bookmarks, onBookmark }) => {
     setTimeout(() => setCopied(false), 1400);
   }, [verse, selectedLanguage]);
 
+  const handleBookmark = (e) => {
+    e.stopPropagation();
+    const textSnippet = selectedLanguage === 'both' ? verse.en : verse.value;
+    onBookmark({ id, book, chapter, verseNumber: verseNum, textSnippet });
+    setBmAnim(true);
+    setTimeout(() => setBmAnim(false), 500);
+  };
+
   return (
     <div ref={ref} id={`v-${verseNum}`}
       className={`rp-verse ${vis ? 'vis' : ''} ${hovered ? 'hovered' : ''} ${isBookmarked ? 'bookmarked' : ''}`}
@@ -173,14 +226,21 @@ const Verse = ({ verse, idx, selectedLanguage, bookmarks, onBookmark }) => {
           <p className={selectedLanguage === 'english' ? 'rp-ven' : 'rp-vta'}>{verse.value}</p>
         )}
       </div>
-      {isBookmarked && <span className="rp-bookmark-indicator" title="Bookmarked">🔖</span>}
+      <div className="rp-indicators">
+        {isBookmarked && <span className="rp-indicator" title="Bookmarked">🔖</span>}
+        {hasNote && <span className="rp-indicator" title="Has Note">📝</span>}
+      </div>
       <div className="rp-vacts" aria-hidden="true">
-        <button className={`rp-vact ${isBookmarked ? 'active' : ''}`} title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
-          onClick={e => { e.stopPropagation(); onBookmark(bookmarkKey); }}>
+        <button className={`rp-vact ${isBookmarked ? 'active' : ''} ${bmAnim ? 'pop-anim' : ''}`} title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
+          onClick={handleBookmark}>
           {isBookmarked ? '🔖' : '🤍'}
         </button>
+        <button className={`rp-vact ${hasNote ? 'active' : ''}`} title="Notes" onClick={(e) => { 
+          e.stopPropagation(); 
+          const textSnippet = selectedLanguage === 'both' ? verse.en : verse.value;
+          onEditNote({ id, book, chapter, verseNumber: verseNum, textSnippet }); 
+        }}>📝</button>
         <button className="rp-vact" title={copied ? 'Copied!' : 'Copy'} onClick={copy}>{copied ? '✓' : '📋'}</button>
-        <button className="rp-vact" title="Highlight" onClick={e => e.stopPropagation()}>✏️</button>
         <button className="rp-vact" title="Share" onClick={e => e.stopPropagation()}>↗</button>
       </div>
     </div>
@@ -228,6 +288,75 @@ const ChapterStrip = ({ book, selected, onSelect, totalChapters }) => {
   );
 };
 
+/* ── Verse of the Day Widget ── */
+const VerseOfTheDayWidget = ({ selectedLanguage, onSelectResult }) => {
+  const [votd, setVotd] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [minimized, setMinimized] = useState(false);
+
+  useEffect(() => {
+    const fetchVOTD = async () => {
+      try {
+        setLoading(true);
+        const langParam = selectedLanguage === 'both' ? 'english' : selectedLanguage;
+        const res = await fetch(`http://localhost:5000/api/verseoftheday?language=${langParam}`);
+        if (res.ok) {
+          const data = await res.json();
+          setVotd(data);
+        }
+      } catch (err) {
+        console.error("VOTD error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVOTD();
+  }, [selectedLanguage]);
+
+  if (!votd && !loading) return null;
+
+  const handleReadFull = () => {
+    if(!votd) return;
+    const bookKey = votd.book.toLowerCase().replace(/\s+/g, "");
+    let actualBookKey = bookKey;
+    const allBooks = [...OT, ...NT];
+    const foundBook = allBooks.find(b => b.english.toLowerCase().replace(/\s+/g, "") === bookKey || b.key === bookKey);
+    if (foundBook) actualBookKey = foundBook.key;
+    
+    onSelectResult(actualBookKey, votd.chapter, votd.verseNumber);
+  };
+
+  return (
+    <div className={`votd-widget ${minimized ? 'minimized' : ''}`}>
+      {minimized ? (
+        <button className="votd-open-btn" onClick={() => setMinimized(false)} aria-label="Open Verse of the Day" title="Verse of the Day">
+          ✨
+        </button>
+      ) : (
+        <div className="votd-card">
+          <div className="votd-header">
+            <span className="votd-title">✨ Verse of the Day</span>
+            <button className="votd-close-btn" onClick={() => setMinimized(true)} aria-label="Minimize" title="Minimize">✕</button>
+          </div>
+          <div className="votd-body">
+            {loading ? (
+              <div className="votd-loading">Loading daily verse...</div>
+            ) : (
+              <>
+                <p className="votd-text">"{votd.text}"</p>
+                <div className="votd-footer">
+                  <span className="votd-ref">{votd.book} {votd.chapter}:{votd.verseNumber}</span>
+                  <button className="votd-read-btn" onClick={handleReadFull}>Read Chapter ›</button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ── Main Page ── */
 const ReadBible = () => {
   // ── All state declarations first ──
@@ -238,10 +367,22 @@ const ReadBible = () => {
   const [totalChapters, setTotalChapters] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [targetVerse, setTargetVerse] = useState(null);
   const [bookmarks, setBookmarks] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('duobible-bookmarks') || '[]'); } catch { return []; }
+    try { 
+      const parsed = JSON.parse(localStorage.getItem('duobible-bookmarks') || '[]');
+      return parsed.filter(i => typeof i === 'object' && i !== null);
+    } catch { return []; }
   });
+  const [notes, setNotes] = useState(() => {
+    try { 
+      const parsed = JSON.parse(localStorage.getItem('duobible-notes') || '[]');
+      return parsed.filter(i => typeof i === 'object' && i !== null);
+    } catch { return []; }
+  });
+  const [showBookmarks, setShowBookmarks] = useState(false);
+  const [activeNote, setActiveNote] = useState(null);
+  const [noteDraft, setNoteDraft] = useState('');
   const [mode, setMode] = useState('light');
   const [sidebar, setSidebar] = useState(true);
   const [focus, setFocus] = useState(false);
@@ -268,11 +409,39 @@ const ReadBible = () => {
     localStorage.setItem('duobible-bookmarks', JSON.stringify(bookmarks));
   }, [bookmarks]);
 
-  const toggleBookmark = useCallback((key) => {
-    setBookmarks(prev =>
-      prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]
-    );
+  const toggleBookmark = useCallback((bData) => {
+    setBookmarks(prev => {
+      const exists = prev.some(b => b.id === bData.id);
+      if (exists) return prev.filter(b => b.id !== bData.id);
+      return [...prev, { ...bData, timestamp: Date.now() }];
+    });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('duobible-notes', JSON.stringify(notes));
+  }, [notes]);
+
+  const handleEditNote = useCallback((vData) => {
+    const existing = notes.find(n => n.id === vData.id);
+    setNoteDraft(existing ? existing.content : '');
+    setActiveNote(vData);
+  }, [notes]);
+
+  const saveNote = () => {
+    if (!activeNote) return;
+    setNotes(prev => {
+      const filtered = prev.filter(n => n.id !== activeNote.id);
+      if (!noteDraft.trim()) return filtered;
+      return [...filtered, { ...activeNote, content: noteDraft.trim(), timestamp: Date.now() }];
+    });
+    setActiveNote(null);
+  };
+
+  const deleteNote = () => {
+    if (!activeNote) return;
+    setNotes(prev => prev.filter(n => n.id !== activeNote.id));
+    setActiveNote(null);
+  };
 
   /* Parallax on mouse move */
   useEffect(() => {
@@ -349,12 +518,24 @@ const ReadBible = () => {
     if (window.innerWidth < 900) setSidebar(false);
   };
 
-  const displayVerses = searchQuery
-    ? verses.filter(v => {
-      const t = selectedLanguage === 'both' ? `${v.en} ${v.ta}` : v.value || '';
-      return t.toLowerCase().includes(searchQuery.toLowerCase());
-    })
-    : verses;
+  const handleSearchResult = (bookKey, chapterNum, verseNum) => {
+    setSelectedBook(bookKey);
+    setSelectedChapter(chapterNum);
+    setTargetVerse(verseNum);
+    if (window.innerWidth < 900) setSidebar(false);
+  };
+
+  useEffect(() => {
+    if (targetVerse && verses.length > 0 && !loading) {
+      const idx = verses.findIndex(v => v.verseNumber == targetVerse);
+      if (idx !== -1) {
+        setTimeout(() => scrollToVerse(idx), 300);
+      }
+      setTargetVerse(null);
+    }
+  }, [verses, loading, targetVerse]);
+
+  const displayVerses = verses;
 
   const sidebarLeft = focus ? 0 : (sidebar ? 234 : 0);
 
@@ -418,6 +599,7 @@ const ReadBible = () => {
               <p className="rp-sub">Chapter {selectedChapter} &nbsp;·&nbsp; {pct}% read</p>
             </div>
             <div className="rp-controls">
+              <button className="rp-icon-btn" title="Bookmarks" onClick={() => setShowBookmarks(true)}>🔖</button>
               <div className="mode-toggle">
                 {[{ k: 'light', i: '☀️' }, { k: 'sepia', i: '📜' }, { k: 'dark', i: '🌙' }].map(m => (
                   <button key={m.k} className={`mode-btn ${mode === m.k ? 'on' : ''}`}
@@ -436,8 +618,8 @@ const ReadBible = () => {
           {/* Search */}
           {!focus && (
             <SearchBar
-              onSearch={q => setSearchQuery(q)}
-              onClear={() => setSearchQuery('')}
+              onSelectResult={handleSearchResult}
+              selectedLanguage={selectedLanguage}
             />
           )}
 
@@ -445,7 +627,7 @@ const ReadBible = () => {
           {bookmarks.length > 0 && !focus && (
             <div className="bookmark-chip">
               🔖 {bookmarks.length} bookmarked verse{bookmarks.length !== 1 ? 's' : ''}
-              <button onClick={() => setBookmarks([])}>Clear all</button>
+              <button onClick={() => setShowBookmarks(true)}>View all</button>
             </div>
           )}
 
@@ -455,14 +637,7 @@ const ReadBible = () => {
               <ChapterStrip book={selectedBook} selected={selectedChapter}
                 onSelect={setSelectedChapter} totalChapters={totalChapters} />
 
-              {searchQuery && (
-                <div className="search-result-info">
-                  {displayVerses.length > 0
-                    ? `${displayVerses.length} verse${displayVerses.length !== 1 ? 's' : ''} matching "${searchQuery}"`
-                    : `No verses found for "${searchQuery}"`}
-                  <button className="search-clear-btn" onClick={() => setSearchQuery('')}>Clear</button>
-                </div>
-              )}
+              {/* Search results banner removed; global search used instead */}
 
               <article className="rp-verse-area" aria-label={`${getBookName(selectedBook)} Chapter ${selectedChapter}`}>
                 {loading ? (
@@ -480,7 +655,9 @@ const ReadBible = () => {
                   displayVerses.map((v, i) => (
                     <Verse key={`${selectedLanguage}-${selectedBook}-${selectedChapter}-${v.verseNumber || i}`}
                       verse={v} idx={i} selectedLanguage={selectedLanguage}
-                      bookmarks={bookmarks} onBookmark={toggleBookmark} />
+                      book={selectedBook} chapter={selectedChapter}
+                      bookmarks={bookmarks} onBookmark={toggleBookmark}
+                      notes={notes} onEditNote={handleEditNote} />
                   ))
                 ) : (
                   <div className="rp-empty">
@@ -507,6 +684,67 @@ const ReadBible = () => {
         </div>
       </div>
 
+      <VerseOfTheDayWidget selectedLanguage={selectedLanguage} onSelectResult={handleSearchResult} />
+
+      {/* Bookmarks Modal/Drawer */}
+      {showBookmarks && (
+        <div className="bm-overlay" onClick={() => setShowBookmarks(false)}>
+          <div className="bm-drawer" onClick={e => e.stopPropagation()}>
+            <div className="bm-header">
+              <h2 className="bm-title">Your Bookmarks</h2>
+              <button className="bm-close" onClick={() => setShowBookmarks(false)}>✕</button>
+            </div>
+            <div className="bm-list">
+              {bookmarks.length === 0 ? (
+                <div className="bm-empty">
+                  <div className="bm-empty-icon">🔖</div>
+                  <p>No bookmarks yet.</p>
+                  <span>Click the bookmark icon on any verse to save it.</span>
+                </div>
+              ) : (
+                bookmarks.sort((a,b) => b.timestamp - a.timestamp).map(b => (
+                  <div key={b.id} className="bm-item" onClick={() => { handleSearchResult(b.book, b.chapter, b.verseNumber); setShowBookmarks(false); }}>
+                    <div className="bm-item-top">
+                      <div className="bm-ref">{getBookName(b.book)} {b.chapter}:{b.verseNumber}</div>
+                      <button className="bm-remove" onClick={(e) => { e.stopPropagation(); toggleBookmark({ id: b.id }); }} title="Remove">✕</button>
+                    </div>
+                    <div className="bm-text">{b.textSnippet ? `"${b.textSnippet.substring(0, 85)}${b.textSnippet.length > 85 ? '...' : ''}"` : '...'}</div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Notes Modal */}
+      {activeNote && (
+        <div className="note-overlay" onClick={() => setActiveNote(null)}>
+          <div className="note-modal" onClick={e => e.stopPropagation()}>
+            <div className="note-header">
+              <h2 className="note-title">Notes for {getBookName(activeNote.book)} {activeNote.chapter}:{activeNote.verseNumber}</h2>
+              <button className="note-close" onClick={() => setActiveNote(null)}>✕</button>
+            </div>
+            <div className="note-snippet">"{activeNote.textSnippet}"</div>
+            <div className="note-body">
+              <textarea 
+                className="note-textarea"
+                placeholder="Write your thoughts, reflections, or prayers here..."
+                value={noteDraft}
+                onChange={e => setNoteDraft(e.target.value)}
+                autoFocus
+              />
+            </div>
+            <div className="note-footer">
+              <button className="note-btn-delete" onClick={deleteNote}>Delete</button>
+              <div className="note-footer-right">
+                <button className="note-btn-cancel" onClick={() => setActiveNote(null)}>Cancel</button>
+                <button className="note-btn-save" onClick={saveNote}>Save Note</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

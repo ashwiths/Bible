@@ -23,6 +23,7 @@ import Home         from './pages/Home';
 import ReadBible    from './pages/ReadBible';
 import About        from './pages/About';
 import DailyReading from './pages/DailyReading';
+import BookFlip     from './pages/BookFlip';
 import NotFound     from './pages/NotFound';
 
 // Global styles
@@ -46,10 +47,11 @@ const App = () => {
         <Route path="/"       element={<LandingPage />} />
 
         {/* "/home" = the new premium dashboard (reached via Explore button) */}
-        <Route path="/home"   element={<Home />} />
-        <Route path="/read"   element={<ReadBible />} />
-        <Route path="/daily"  element={<DailyReading />} />
-        <Route path="/about"  element={<About />} />
+        <Route path="/home"      element={<Home />} />
+        <Route path="/read"      element={<ReadBible />} />
+        <Route path="/daily"     element={<DailyReading />} />
+        <Route path="/about"     element={<About />} />
+        <Route path="/bookflip"  element={<BookFlip />} />
 
         {/* 404 fallback */}
         <Route path="*"       element={<NotFound />} />
