@@ -2,7 +2,6 @@
 // Bible-cross themed cinematic loading screen
 
 import React, { useEffect } from 'react';
-import '../styles/components.css';
 
 const Loader = ({ onDone }) => {
   useEffect(() => {

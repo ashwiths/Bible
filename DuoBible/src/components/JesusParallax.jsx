@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/hero.css';
 
 const JesusParallax = () => {
   const sectionRef = useRef(null);

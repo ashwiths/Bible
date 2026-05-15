@@ -2,7 +2,6 @@
 // Floating gold particle glow effect — pure CSS + JS, no heavy libraries
 
 import React, { useEffect, useRef } from 'react';
-import '../styles/components.css';
 
 const AnimatedBackground = () => {
   const containerRef = useRef(null);

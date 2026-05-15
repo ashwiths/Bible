@@ -8,7 +8,6 @@ import DailyVerse from '../components/DailyVerse';
 import LanguageToggle from '../components/LanguageToggle';
 import ScrollReveal from '../components/ScrollReveal';
 import { readingPlans } from '../data/bibleData';
-import '../styles/components.css';
 
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

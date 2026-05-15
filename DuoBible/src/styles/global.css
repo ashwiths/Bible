@@ -3,8 +3,6 @@
    Design tokens, resets, and base typography
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
-
 /* --- CSS Variables / Design Tokens --- */
 :root {
   --bg-primary: transparent;

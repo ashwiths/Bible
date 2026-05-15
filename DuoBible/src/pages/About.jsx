@@ -5,8 +5,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
-import '../styles/components.css';
-import '../styles/global.css';
 
 const features = [
   { icon: '📖', title: 'Bilingual Reading',    desc: 'Read the Bible side-by-side in English and Tamil with elegant typography.' },

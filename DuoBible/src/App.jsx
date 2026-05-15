@@ -30,6 +30,13 @@ import NotFound     from './pages/NotFound';
 import './styles/global.css';
 import './styles/animations.css';
 import './styles/components.css';
+import './styles/hero.css';
+import './styles/home.css';
+import './styles/landing.css';
+import './styles/praise.css';
+import './styles/read.css';
+import './styles/bookflip.css';
+// Responsive styles must be absolutely last
 import './styles/responsive.css';
 
 // The original landing design: PraiseSection on top, JesusParallax below

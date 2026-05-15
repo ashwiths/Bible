@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../styles/components.css';
 
 const LANGS = [
   { k: 'english', l: 'English', script: 'En' },

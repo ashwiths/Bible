@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import '../styles/hero.css';
 
 const HeroSection = () => {
   const layerRef = useRef(null);

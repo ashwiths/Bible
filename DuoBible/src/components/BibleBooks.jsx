@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { books } from '../data/bibleData';
-import '../styles/components.css';
 
 const BibleBooks = ({ selectedBook, onSelect }) => {
   // All 66 books of the Bible - extended list for the sidebar

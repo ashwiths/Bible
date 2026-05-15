@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { bibleData } from '../data/bibleData';
 import { bookTranslations } from '../data/bookTranslations';
-import '../styles/read.css';
 import bookmarkImg from '../assets/bookmark.png';
+import { API_BASE_URL } from '../config/api';
 
 const OT = [
   { key: "genesis", english: "Genesis" }, { key: "exodus", english: "Exodus" }, { key: "leviticus", english: "Leviticus" },
@@ -101,7 +101,7 @@ const SearchBar = ({ onSelectResult, selectedLanguage }) => {
     const delayDebounceFn = setTimeout(async () => {
       try {
         const langParam = selectedLanguage === 'both' ? 'english' : selectedLanguage;
-        const res = await fetch(`http://localhost:5000/api/search?q=${encodeURIComponent(query)}&language=${langParam}&limit=12`);
+        const res = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(query)}&language=${langParam}&limit=12`);
         if (res.ok) {
           const data = await res.json();
           setResults(data.results || []);
@@ -410,8 +410,8 @@ const ReadBible = () => {
         let fetchedVerses = [], maxChapters = 1;
         if (selectedLanguage === 'both') {
           const [resEn, resTa] = await Promise.all([
-            fetch(`http://localhost:5000/api/bible/english/${fBook}/${selectedChapter}`),
-            fetch(`http://localhost:5000/api/bible/tamil/${fBook}/${selectedChapter}`)
+            fetch(`${API_BASE_URL}/api/bible/english/${fBook}/${selectedChapter}`),
+            fetch(`${API_BASE_URL}/api/bible/tamil/${fBook}/${selectedChapter}`)
           ]);
           if (!resEn.ok || !resTa.ok) throw new Error('Scripture not found for bilingual mode.');
           const dataEn = await resEn.json(), dataTa = await resTa.json();
@@ -421,7 +421,7 @@ const ReadBible = () => {
           dataTa.verses.forEach(v => { if (combined[v.verseNumber]) combined[v.verseNumber].ta = v.value; });
           fetchedVerses = Object.keys(combined).sort((a, b) => a - b).map(n => combined[n]);
         } else {
-          const res = await fetch(`http://localhost:5000/api/bible/${selectedLanguage}/${fBook}/${selectedChapter}`);
+          const res = await fetch(`${API_BASE_URL}/api/bible/${selectedLanguage}/${fBook}/${selectedChapter}`);
           if (!res.ok) throw new Error('Scripture not found on server.');
           const data = await res.json();
           fetchedVerses = data.verses || []; maxChapters = data.totalChapters || 1;

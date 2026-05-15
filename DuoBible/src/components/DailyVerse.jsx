@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { dailyVerse } from '../data/bibleData';
-import '../styles/components.css';
 
 const DailyVerse = ({ language = 'en' }) => {
   const today = new Date().toLocaleDateString('en-US', {

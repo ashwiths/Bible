@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import coverArt from '../assets/bible cocer.jpeg';
 import { bookTranslations } from '../data/bookTranslations';
-import '../styles/bookflip.css';
 
-const API = 'http://localhost:5000/api/bible';
+import { API_BASE_URL } from '../config/api';
+
+const API = `${API_BASE_URL}/api/bible`;
 const VPP = 10; // verses per page — slightly fewer for clean layout
 
 const BOOKS = [

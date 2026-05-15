@@ -2,7 +2,6 @@
 // Minimalist developer-branded footer
 
 import React from 'react';
-import '../styles/components.css';
 
 const Footer = () => {
   const year = new Date().getFullYear();

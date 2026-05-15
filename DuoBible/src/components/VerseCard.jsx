@@ -2,7 +2,6 @@
 // Individual scripture card with hover gold accent line
 
 import React from 'react';
-import '../styles/components.css';
 
 const VerseCard = ({ book, text, ta, language = 'en', delay = 0 }) => {
   return (

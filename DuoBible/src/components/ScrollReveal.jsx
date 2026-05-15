@@ -2,7 +2,6 @@
 // Wraps children and animates them when they scroll into view
 
 import React, { useEffect, useRef } from 'react';
-import '../styles/animations.css';
 
 const ScrollReveal = ({ children, className = '', direction = 'up', delay = 0, style = {} }) => {
   const ref = useRef(null);

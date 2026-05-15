@@ -2,7 +2,6 @@
 // Numbered chapter grid for selecting Bible chapters
 
 import React from 'react';
-import '../styles/components.css';
 
 const ChapterSelector = ({ book, chapters = 50, selectedChapter, onSelect }) => {
   // Chapter count per book (simplified map for demo)

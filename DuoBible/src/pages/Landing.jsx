@@ -7,8 +7,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
-import '../styles/landing.css';
-import '../styles/animations.css';
 
 const Landing = () => {
   const navigate = useNavigate();

@@ -11,8 +11,6 @@ import LanguageToggle from '../components/LanguageToggle';
 import ScrollReveal from '../components/ScrollReveal';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { featuredVerses, readingPlans } from '../data/bibleData';
-import '../styles/home.css';
-import '../styles/components.css';
 import heroBgImg from '../assets/hero_bg.png';
 import daily2Img from '../assets/daily2.jpg';
 import daily3Img from '../assets/daily3.jpg';

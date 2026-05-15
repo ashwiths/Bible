@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import '../styles/praise.css';
 
 const PraiseSection = () => {
   const wrapperRef = useRef(null);

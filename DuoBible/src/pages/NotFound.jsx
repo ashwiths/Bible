@@ -4,7 +4,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import '../styles/global.css';
 
 const NotFound = () => {
   const navigate = useNavigate();
