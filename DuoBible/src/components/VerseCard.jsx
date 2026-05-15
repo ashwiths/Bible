@@ -15,12 +15,12 @@ const VerseCard = ({ book, text, ta, language = 'en', delay = 0 }) => {
       <div className="verse-book">{book}</div>
 
       {/* English verse */}
-      {(language === 'en' || language === 'both') && (
+      {(language === 'en' || language === 'english' || language === 'both') && (
         <p className="verse-text">"{text}"</p>
       )}
 
       {/* Tamil verse */}
-      {(language === 'ta' || language === 'both') && (
+      {(language === 'ta' || language === 'tamil' || language === 'both') && (
         <p className="verse-text" style={{ fontStyle: 'normal', color: 'rgba(255,255,255,0.8)' }}>
           "{ta}"
         </p>

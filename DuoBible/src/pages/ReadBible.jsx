@@ -227,13 +227,19 @@ const Verse = ({ verse, idx, selectedLanguage, book, chapter, bookmarks, onBookm
         )}
       </div>
       <div className="rp-indicators">
-        {isBookmarked && <span className="rp-indicator" title="Bookmarked">🔖</span>}
+        {isBookmarked && (
+          <span className="rp-indicator" title="Bookmarked">
+            <img src="/src/assets/bookmark.png" alt="" style={{ height: '14px', width: 'auto' }} />
+          </span>
+        )}
         {hasNote && <span className="rp-indicator" title="Has Note">📝</span>}
       </div>
       <div className="rp-vacts" aria-hidden="true">
         <button className={`rp-vact ${isBookmarked ? 'active' : ''} ${bmAnim ? 'pop-anim' : ''}`} title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
           onClick={handleBookmark}>
-          {isBookmarked ? '🔖' : '🤍'}
+          {isBookmarked ? (
+            <img src="/src/assets/bookmark.png" alt="" style={{ height: '18px', width: 'auto' }} />
+          ) : '🤍'}
         </button>
         <button className={`rp-vact ${hasNote ? 'active' : ''}`} title="Notes" onClick={(e) => { 
           e.stopPropagation(); 
@@ -269,90 +275,37 @@ const ChapterStrip = ({ book, selected, onSelect, totalChapters }) => {
     }
   };
 
+  const scrollLeft = () => {
+    if (stripRef.current) {
+      stripRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (stripRef.current) {
+      stripRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="ch-strip-wrapper">
       <div className="ch-strip-label">
         <span>Chapter</span>
         <span className="ch-strip-current">{selected} / {count}</span>
       </div>
-      <div className="ch-strip" ref={stripRef} onWheel={onWheel} role="group" aria-label={`Chapters of ${book}`}>
-        {Array.from({ length: count }, (_, i) => i + 1).map(n => (
-          <button key={n} id={`ch-${n}`} ref={selected === n ? activeRef : null}
-            className={`ch-strip-btn ${selected === n ? 'on' : ''}`}
-            onClick={() => onSelect(n)} aria-label={`Chapter ${n}`} aria-pressed={selected === n}>
-            {n}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* ── Verse of the Day Widget ── */
-const VerseOfTheDayWidget = ({ selectedLanguage, onSelectResult }) => {
-  const [votd, setVotd] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [minimized, setMinimized] = useState(false);
-
-  useEffect(() => {
-    const fetchVOTD = async () => {
-      try {
-        setLoading(true);
-        const langParam = selectedLanguage === 'both' ? 'english' : selectedLanguage;
-        const res = await fetch(`http://localhost:5000/api/verseoftheday?language=${langParam}`);
-        if (res.ok) {
-          const data = await res.json();
-          setVotd(data);
-        }
-      } catch (err) {
-        console.error("VOTD error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchVOTD();
-  }, [selectedLanguage]);
-
-  if (!votd && !loading) return null;
-
-  const handleReadFull = () => {
-    if(!votd) return;
-    const bookKey = votd.book.toLowerCase().replace(/\s+/g, "");
-    let actualBookKey = bookKey;
-    const allBooks = [...OT, ...NT];
-    const foundBook = allBooks.find(b => b.english.toLowerCase().replace(/\s+/g, "") === bookKey || b.key === bookKey);
-    if (foundBook) actualBookKey = foundBook.key;
-    
-    onSelectResult(actualBookKey, votd.chapter, votd.verseNumber);
-  };
-
-  return (
-    <div className={`votd-widget ${minimized ? 'minimized' : ''}`}>
-      {minimized ? (
-        <button className="votd-open-btn" onClick={() => setMinimized(false)} aria-label="Open Verse of the Day" title="Verse of the Day">
-          ✨
-        </button>
-      ) : (
-        <div className="votd-card">
-          <div className="votd-header">
-            <span className="votd-title">✨ Verse of the Day</span>
-            <button className="votd-close-btn" onClick={() => setMinimized(true)} aria-label="Minimize" title="Minimize">✕</button>
-          </div>
-          <div className="votd-body">
-            {loading ? (
-              <div className="votd-loading">Loading daily verse...</div>
-            ) : (
-              <>
-                <p className="votd-text">"{votd.text}"</p>
-                <div className="votd-footer">
-                  <span className="votd-ref">{votd.book} {votd.chapter}:{votd.verseNumber}</span>
-                  <button className="votd-read-btn" onClick={handleReadFull}>Read Chapter ›</button>
-                </div>
-              </>
-            )}
-          </div>
+      <div className="ch-strip-container">
+        <button className="ch-strip-nav-btn" onClick={scrollLeft} aria-label="Scroll left">‹</button>
+        <div className="ch-strip" ref={stripRef} onWheel={onWheel} role="group" aria-label={`Chapters of ${book}`}>
+          {Array.from({ length: count }, (_, i) => i + 1).map(n => (
+            <button key={n} id={`ch-${n}`} ref={selected === n ? activeRef : null}
+              className={`ch-strip-btn ${selected === n ? 'on' : ''}`}
+              onClick={() => onSelect(n)} aria-label={`Chapter ${n}`} aria-pressed={selected === n}>
+              {n}
+            </button>
+          ))}
         </div>
-      )}
+        <button className="ch-strip-nav-btn" onClick={scrollRight} aria-label="Scroll right">›</button>
+      </div>
     </div>
   );
 };
@@ -444,16 +397,7 @@ const ReadBible = () => {
   };
 
   /* Parallax on mouse move */
-  useEffect(() => {
-    const handler = e => {
-      if (!bgRef.current) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 18;
-      const y = (e.clientY / window.innerHeight - 0.5) * 12;
-      bgRef.current.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
-    };
-    window.addEventListener('mousemove', handler, { passive: true });
-    return () => window.removeEventListener('mousemove', handler);
-  }, []);
+
 
   /* API Fetch */
   useEffect(() => {
@@ -593,19 +537,17 @@ const ReadBible = () => {
           <div className="rp-hdr">
             <button className="rp-back-btn" onClick={() => navigate('/home')} aria-label="Back to Home">
               <span className="rp-back-icon">←</span>
+              <span className="rp-back-text">Back</span>
             </button>
             <div className="rp-hdr-center">
               <h1 className="rp-title">{getBookName(selectedBook)}</h1>
               <p className="rp-sub">Chapter {selectedChapter} &nbsp;·&nbsp; {pct}% read</p>
             </div>
             <div className="rp-controls">
-              <button className="rp-icon-btn" title="Bookmarks" onClick={() => setShowBookmarks(true)}>🔖</button>
-              <div className="mode-toggle">
-                {[{ k: 'light', i: '☀️' }, { k: 'sepia', i: '📜' }, { k: 'dark', i: '🌙' }].map(m => (
-                  <button key={m.k} className={`mode-btn ${mode === m.k ? 'on' : ''}`}
-                    onClick={() => setMode(m.k)} aria-label={`${m.k} mode`}>{m.i}</button>
-                ))}
-              </div>
+              <button className="rp-icon-btn" title="Bookmarks" onClick={() => setShowBookmarks(true)}>
+                <img src="/src/assets/bookmark.png" alt="Bookmarks" style={{ height: '32px', width: 'auto' }} />
+              </button>
+
               <LanguageDropdown selectedLanguage={selectedLanguage} onChange={setSelectedLanguage} />
               <button id="focus-mode-btn" className={`rp-focus-btn ${focus ? 'on' : ''}`}
                 onClick={() => setFocus(p => !p)} aria-pressed={focus}
@@ -623,13 +565,7 @@ const ReadBible = () => {
             />
           )}
 
-          {/* Bookmarks count chip */}
-          {bookmarks.length > 0 && !focus && (
-            <div className="bookmark-chip">
-              🔖 {bookmarks.length} bookmarked verse{bookmarks.length !== 1 ? 's' : ''}
-              <button onClick={() => setShowBookmarks(true)}>View all</button>
-            </div>
-          )}
+
 
           {/* Scroll area */}
           <div className="rp-scroll" ref={scrollRef}>
@@ -684,8 +620,6 @@ const ReadBible = () => {
         </div>
       </div>
 
-      <VerseOfTheDayWidget selectedLanguage={selectedLanguage} onSelectResult={handleSearchResult} />
-
       {/* Bookmarks Modal/Drawer */}
       {showBookmarks && (
         <div className="bm-overlay" onClick={() => setShowBookmarks(false)}>
@@ -697,7 +631,9 @@ const ReadBible = () => {
             <div className="bm-list">
               {bookmarks.length === 0 ? (
                 <div className="bm-empty">
-                  <div className="bm-empty-icon">🔖</div>
+                  <div className="bm-empty-icon">
+                    <img src="/src/assets/bookmark.png" alt="" style={{ height: '48px', width: 'auto', opacity: 0.4 }} />
+                  </div>
                   <p>No bookmarks yet.</p>
                   <span>Click the bookmark icon on any verse to save it.</span>
                 </div>
@@ -745,6 +681,7 @@ const ReadBible = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };

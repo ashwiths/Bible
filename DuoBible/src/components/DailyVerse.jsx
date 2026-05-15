@@ -17,7 +17,7 @@ const DailyVerse = ({ language = 'en' }) => {
           <div className="daily-date">✦ {today} ✦</div>
 
           {/* Verse text — toggles based on language prop */}
-          {(language === 'en' || language === 'both') && (
+          {(language === 'en' || language === 'english' || language === 'both') && (
             <blockquote className="daily-text">
               "{dailyVerse.text}"
             </blockquote>
@@ -25,7 +25,7 @@ const DailyVerse = ({ language = 'en' }) => {
 
           {language === 'both' && <div style={{ height: '0.5rem' }} />}
 
-          {(language === 'ta' || language === 'both') && (
+          {(language === 'ta' || language === 'tamil' || language === 'both') && (
             <blockquote className="daily-text" style={{ fontStyle: 'normal', fontSize: 'clamp(1.2rem,2.5vw,1.7rem)' }}>
               "{dailyVerse.ta}"
             </blockquote>

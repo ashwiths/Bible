@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import coverArt from '../assets/daily1.jpg';
+import coverArt from '../assets/bible cocer.jpeg';
+import { bookTranslations } from '../data/bookTranslations';
 import '../styles/bookflip.css';
 
 const API = 'http://localhost:5000/api/bible';
@@ -95,7 +96,11 @@ const BookFlip = () => {
   const [pendSpread, setPend]   = useState(null);
 
   const bookKey      = toKey(BOOKS[bookIdx]);
-  const bookName     = BOOKS[bookIdx];
+  const getTranslatedBookName = (b) => {
+    const k = toKey(b);
+    return (bookTranslations[lang] && bookTranslations[lang][k]) || b;
+  };
+  const bookName     = getTranslatedBookName(BOOKS[bookIdx]);
   const totalSpreads = 1 + Math.ceil(pages.length / 2);
   const isAnimating  = animDir !== 'idle';
 
@@ -197,7 +202,7 @@ const BookFlip = () => {
         </select>
         <select className="bf-select" value={bookIdx}
           onChange={e => { setBookIdx(+e.target.value); setChapter(1); }}>
-          {BOOKS.map((b, i) => <option key={b} value={i}>{b}</option>)}
+          {BOOKS.map((b, i) => <option key={b} value={i}>{getTranslatedBookName(b)}</option>)}
         </select>
         <div className="bf-ch-row">
           <button className="bf-ch-btn" onClick={() => setChapter(c => Math.max(1, c-1))} disabled={chapter <= 1}>‹</button>
@@ -216,7 +221,12 @@ const BookFlip = () => {
           <div className="bf-book">
 
             {/* LEFT panel */}
-            <div className={`bf-panel bf-panel--left${animDir === 'fwd' ? ' bf-shadow-sweep' : ''}`}>
+            <div 
+              className={`bf-panel bf-panel--left${animDir === 'fwd' ? ' bf-shadow-sweep' : ''}`}
+              onClick={goBack}
+              style={{ cursor: spread > 0 ? 'pointer' : 'default' }}
+              title={spread > 0 ? "Click to go back" : ""}
+            >
               {renderContent(leftContent, leftPg)}
             </div>
 
@@ -228,9 +238,9 @@ const BookFlip = () => {
             {/* FLIP CARD */}
             <div
               className={`bf-flip${flipAnimClass ? ' ' + flipAnimClass : ''}`}
-              style={flipInitialStyle}
+              style={{ ...flipInitialStyle, cursor: spread < totalSpreads - 1 ? 'pointer' : 'default' }}
               onClick={goFwd}
-              title="Click to turn page"
+              title={spread < totalSpreads - 1 ? "Click to turn page" : ""}
             >
               {/* Front face: shown before flip (fwd) or after (bwd: this is the "back" side) */}
               <div className="bf-face bf-face--front">

@@ -53,29 +53,6 @@ const Home = () => {
               >
                 START READING
               </button>
-              <button
-                id="daily-plan-btn"
-                onClick={() => navigate('/daily')}
-                style={{
-                  fontSize: '0.85rem', padding: '0.9rem 2.5rem',
-                  border: '1px solid var(--gold-border)', borderRadius: 'var(--radius-full)',
-                  color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.1em',
-                  transition: 'all 0.3s', cursor: 'pointer',
-                  background: 'transparent',
-                  textTransform: 'uppercase'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = 'var(--gold-dim)';
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'transparent';
-                  e.target.style.transform = 'translateY(0)';
-                }}
-                aria-label="View daily reading plan"
-              >
-                DAILY PLAN
-              </button>
             </div>
           </ScrollReveal>
         </div>
@@ -96,71 +73,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─────────────── 4. DISCOVERY SECTION (MOVED) ─────────────── */}
-      <section className="home-section" id="discovery" style={{ overflow: 'hidden' }}>
-        <div className="container">
-          <ScrollReveal>
-            <div className="section-header">
-              <p className="section-label">Explore</p>
-              <h2 className="section-title">Daily Discovery</h2>
-            </div>
-          </ScrollReveal>
-
-          <div style={{ 
-            display: 'flex', 
-            gap: '2rem', 
-            overflowX: 'auto', 
-            padding: '1rem 0 3rem',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }} className="hide-scrollbar">
-            {[
-              { title: 'The Good Shepherd', sub: 'Find rest in the valley of peace', img: '/src/assets/daily1.jpg', tag: 'Devotion' },
-              { title: 'Pathway to Life', sub: 'Explore the narrow road to truth', img: '/src/assets/daily2.jpg', tag: 'History' },
-              { title: 'Abundant Grace', sub: 'Bask in the warmth of His love', img: '/src/assets/daily3.jpg', tag: 'Meditation' },
-              { title: 'Ancient Wisdom', sub: 'Deep study for a modern world', img: '/src/assets/daily1.jpg', tag: 'Study' },
-            ].map((item, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="glass-card" style={{ 
-                  minWidth: '320px',
-                  height: '420px',
-                  padding: 0,
-                  overflow: 'hidden',
-                  position: 'relative',
-                  cursor: 'pointer',
-                  transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                  <img src={item.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }} />
-                  <div style={{ 
-                    position: 'absolute', 
-                    bottom: 0, left: 0, right: 0, 
-                    padding: '2.5rem',
-                    background: 'linear-gradient(to top, rgba(255,255,255,0.9), transparent)'
-                  }}>
-                    <span style={{ 
-                      fontSize: '0.65rem', 
-                      fontWeight: 800, 
-                      letterSpacing: '0.2em', 
-                      textTransform: 'uppercase',
-                      color: 'var(--gold)',
-                      background: 'rgba(212,175,55,0.1)',
-                      padding: '0.4rem 0.8rem',
-                      borderRadius: '4px',
-                      display: 'inline-block',
-                      marginBottom: '1rem'
-                    }}>{item.tag}</span>
-                    <h3 style={{ fontSize: '1.8rem', color: '#111', marginBottom: '0.5rem', fontFamily: 'var(--font-serif)' }}>{item.title}</h3>
-                    <p style={{ fontSize: '0.9rem', color: '#555', lineHeight: 1.5 }}>{item.sub}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ─────────────── 5. FEATURED SCRIPTURE CARDS ─────────────── */}
       <section className="home-section" id="featured-verses">
@@ -187,30 +99,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─────────────── 6. CONTINUE READING ─────────────── */}
-      <section className="home-section" id="continue-reading">
-        <div className="container">
-          <ScrollReveal>
-            <div className="section-header">
-              <p className="section-label">Continue</p>
-              <h2 className="section-title">Where You Left Off</h2>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <div className="glass-card" style={{ padding: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
-              <div>
-                <p style={{ color: 'var(--gold)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Last Read</p>
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: 600 }}>Psalms 23</h3>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Chapter 23 • Verse 1</p>
-              </div>
-              <button id="continue-reading-btn" className="nav-cta" onClick={() => navigate('/read')}
-                style={{ padding: '0.8rem 2rem', fontSize: '0.9rem' }}>
-                Continue →
-              </button>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
       {/* ─────────────── 7. POPULAR CHAPTERS ─────────────── */}
       <section className="home-section" id="popular-chapters">
@@ -242,22 +130,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─────────────── 8. PRAYER SECTION ─────────────── */}
-      <section className="prayer-section" id="prayer">
-        <div className="container">
-          <ScrollReveal>
-            <div className="prayer-card">
-              <div className="prayer-emoji">🙏</div>
-              <h2 className="prayer-title">Today's Prayer</h2>
-              <p className="prayer-text">
-                "Lord, open my eyes that I may see wonderful things in your law.
-                Guide my steps according to your Word, and let your truth be a
-                lamp unto my feet and a light unto my path. Amen."
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
       {/* ─────────────── 9. INSPIRATIONAL QUOTE ─────────────── */}
       <section className="quote-section" id="inspiration">

@@ -7,39 +7,41 @@
 
 /* --- CSS Variables / Design Tokens --- */
 :root {
-  --bg-primary:      transparent;
-  --bg-secondary:    rgba(255, 255, 255, 0.4);
-  --bg-card:         rgba(255, 255, 255, 0.6);
-  --bg-glass:        rgba(255, 255, 255, 0.5);
+  --bg-primary: transparent;
+  --bg-secondary: rgba(255, 255, 255, 0.4);
+  --bg-card: rgba(255, 255, 255, 0.6);
+  --bg-glass: rgba(255, 255, 255, 0.5);
 
-  --gold:            #d4af37;
-  --gold-light:      #f0d060;
-  --gold-dim:        rgba(212, 175, 55, 0.15);
-  --gold-border:     rgba(212, 175, 55, 0.3);
+  --gold: #d4af37;
+  --gold-light: #f0d060;
+  --gold-dim: rgba(212, 175, 55, 0.15);
+  --gold-border: rgba(212, 175, 55, 0.3);
 
-  --text-primary:    #111111;
-  --text-secondary:  rgba(17, 17, 17, 0.7);
-  --text-muted:      rgba(17, 17, 17, 0.5);
+  --text-primary: #111111;
+  --text-secondary: rgba(17, 17, 17, 0.7);
+  --text-muted: rgba(17, 17, 17, 0.5);
 
-  --font-serif:      'Cormorant Garamond', Georgia, serif;
-  --font-sans:       'Inter', system-ui, sans-serif;
-  --font-reading:    'Crimson Pro', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-reading: 'Crimson Pro', Georgia, serif;
 
-  --radius-sm:       8px;
-  --radius-md:       16px;
-  --radius-lg:       24px;
-  --radius-full:     9999px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
 
-  --shadow-gold:     0 0 40px rgba(212, 175, 55, 0.15);
-  --shadow-deep:     0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 0 40px rgba(212, 175, 55, 0.15);
+  --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.6);
 
   --transition-fast: 0.2s ease;
-  --transition-med:  0.4s ease;
+  --transition-med: 0.4s ease;
   --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* --- Reset --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -51,8 +53,10 @@ html {
 }
 
 body {
-  background-color: #f7f9fa; /* Light airy background */
-  background-image: url('../assets/sky_1.jpg'); /* Use the watercolor sky everywhere! */
+  background-color: #f7f9fa;
+  /* Light airy background */
+  background-image: url('../assets/sky_1.jpg');
+  /* Use the watercolor sky everywhere! */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -69,7 +73,8 @@ a {
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -89,9 +94,11 @@ img {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--gold-border);
   border-radius: var(--radius-full);
@@ -102,14 +109,17 @@ img {
   opacity: 0;
   transform: translateY(20px);
 }
+
 .page-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
 .page-exit {
   opacity: 1;
 }
+
 .page-exit-active {
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -119,6 +129,7 @@ img {
 .gold-text {
   color: var(--gold);
 }
+
 .section-title {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3.5rem);
@@ -126,6 +137,7 @@ img {
   letter-spacing: 0.05em;
   line-height: 1.1;
 }
+
 .section-label {
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -135,6 +147,7 @@ img {
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
+
 .glass-card {
   background: var(--bg-glass);
   border: 1px solid var(--gold-border);
@@ -142,6 +155,7 @@ img {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
 }
+
 .container {
   width: 100%;
   max-width: 1200px;

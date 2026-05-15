@@ -6,10 +6,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/components.css';
 
 const Navbar = () => {
-  const [scrolled, setScrolled]       = useState(false);
-  const [menuOpen, setMenuOpen]       = useState(false);
-  const navigate  = useNavigate();
-  const location  = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Add 'scrolled' class when user scrolls past 60px for stronger blur
   useEffect(() => {
@@ -22,10 +22,9 @@ const Navbar = () => {
   useEffect(() => setMenuOpen(false), [location.pathname]);
 
   const links = [
-    { label: 'Home',    path: '/home' },
-    { label: 'Read',    path: '/read' },
-    { label: 'Daily',   path: '/daily' },
-    { label: 'About',   path: '/about' },
+    { label: 'Home', path: '/home' },
+    { label: 'Read', path: '/read' },
+    { label: 'About', path: '/about' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -33,15 +32,20 @@ const Navbar = () => {
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation">
-        {/* Logo */}
         <div
           className="navbar-logo"
           onClick={() => navigate('/')}
           role="button"
           tabIndex={0}
           aria-label="DuoBible Landing Page"
+          style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
         >
-          DuoBible
+          <img
+            src="/src/assets/bookmark.png"
+            alt="DuoBible Logo"
+            style={{ height: '40px', width: 'auto' }}
+          />
+          <span>DuoBible</span>
         </div>
 
         {/* Desktop Links */}
@@ -58,6 +62,25 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+          <li>
+            <button
+              className="nav-link"
+              onClick={() => navigate('/bookflip')}
+              style={{ 
+                border: '2px solid var(--gold)', 
+                padding: '0.6rem 1.4rem', 
+                borderRadius: 'var(--radius-full)',
+                color: '#111',
+                marginRight: '1rem',
+                fontWeight: '700',
+                letterSpacing: '0.05em',
+                fontSize: '0.8rem',
+                background: 'rgba(184, 134, 11, 0.05)'
+              }}
+            >
+              3D BIBLE
+            </button>
+          </li>
           <li>
             <button
               className="nav-cta"
