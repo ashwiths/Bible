@@ -128,6 +128,29 @@ const JesusParallax = () => {
             Dedicated to building a modern, bilingual platform to share the Word.<br />
             Designing faith-driven technology for the next generation.
           </p>
+          <a href="https://ashil.space" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-block',
+            marginTop: '1.5rem',
+            color: '#b8860b',
+            fontFamily: '"Futura", system-ui, sans-serif',
+            fontSize: '1.2rem',
+            textDecoration: 'none',
+            letterSpacing: '2px',
+            borderBottom: '1px solid rgba(184, 134, 11, 0.4)',
+            paddingBottom: '4px',
+            transition: 'all 0.3s ease',
+            alignSelf: 'center'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#fff';
+            e.currentTarget.style.borderBottomColor = '#fff';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '#b8860b';
+            e.currentTarget.style.borderBottomColor = 'rgba(184, 134, 11, 0.4)';
+          }}>
+            ashil.space ↗
+          </a>
         </div>
 
         <footer style={{ marginTop: '4rem', fontSize: '1.2rem' }}>
