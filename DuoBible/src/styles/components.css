@@ -419,8 +419,9 @@
 .lang-menu {
   position: absolute;
   top: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-10px) scale(0.95);
+  right: 0;
+  transform-origin: top right;
+  transform: translateY(-10px) scale(0.95);
   min-width: 220px;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(40px);
@@ -436,7 +437,7 @@
 
 .lang-menu.open {
   opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 

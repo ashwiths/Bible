@@ -85,6 +85,14 @@
 
 .bf-select:focus {
   background: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+}
+
+.bf-select option {
+  color: #111;
+  background: #fff;
+  font-weight: 600;
 }
 
 .bf-ch-row {
