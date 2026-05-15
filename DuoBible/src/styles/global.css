@@ -45,6 +45,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Prevent iOS text inflation on rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Remove tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {

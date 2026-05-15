@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { bibleData } from '../data/bibleData';
 import { bookTranslations } from '../data/bookTranslations';
 import '../styles/read.css';
+import bookmarkImg from '../assets/bookmark.png';
 
 const OT = [
   { key: "genesis", english: "Genesis" }, { key: "exodus", english: "Exodus" }, { key: "leviticus", english: "Leviticus" },
@@ -229,7 +230,7 @@ const Verse = ({ verse, idx, selectedLanguage, book, chapter, bookmarks, onBookm
       <div className="rp-indicators">
         {isBookmarked && (
           <span className="rp-indicator" title="Bookmarked">
-            <img src="/src/assets/bookmark.png" alt="" style={{ height: '14px', width: 'auto' }} />
+            <img src={bookmarkImg} alt="" style={{ height: '14px', width: 'auto' }} />
           </span>
         )}
         {hasNote && <span className="rp-indicator" title="Has Note">📝</span>}
@@ -238,7 +239,7 @@ const Verse = ({ verse, idx, selectedLanguage, book, chapter, bookmarks, onBookm
         <button className={`rp-vact ${isBookmarked ? 'active' : ''} ${bmAnim ? 'pop-anim' : ''}`} title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
           onClick={handleBookmark}>
           {isBookmarked ? (
-            <img src="/src/assets/bookmark.png" alt="" style={{ height: '18px', width: 'auto' }} />
+            <img src={bookmarkImg} alt="" style={{ height: '18px', width: 'auto' }} />
           ) : '🤍'}
         </button>
         <button className={`rp-vact ${hasNote ? 'active' : ''}`} title="Notes" onClick={(e) => { 
@@ -545,7 +546,7 @@ const ReadBible = () => {
             </div>
             <div className="rp-controls">
               <button className="rp-icon-btn" title="Bookmarks" onClick={() => setShowBookmarks(true)}>
-                <img src="/src/assets/bookmark.png" alt="Bookmarks" style={{ height: '32px', width: 'auto' }} />
+                <img src={bookmarkImg} alt="Bookmarks" style={{ height: '32px', width: 'auto' }} />
               </button>
 
               <LanguageDropdown selectedLanguage={selectedLanguage} onChange={setSelectedLanguage} />
@@ -632,7 +633,7 @@ const ReadBible = () => {
               {bookmarks.length === 0 ? (
                 <div className="bm-empty">
                   <div className="bm-empty-icon">
-                    <img src="/src/assets/bookmark.png" alt="" style={{ height: '48px', width: 'auto', opacity: 0.4 }} />
+                    <img src={bookmarkImg} alt="" style={{ height: '48px', width: 'auto', opacity: 0.4 }} />
                   </div>
                   <p>No bookmarks yet.</p>
                   <span>Click the bookmark icon on any verse to save it.</span>

@@ -26,9 +26,10 @@ import DailyReading from './pages/DailyReading';
 import BookFlip     from './pages/BookFlip';
 import NotFound     from './pages/NotFound';
 
-// Global styles
+// Global styles — import order matters for CSS cascade
 import './styles/global.css';
 import './styles/animations.css';
+import './styles/components.css';
 import './styles/responsive.css';
 
 // The original landing design: PraiseSection on top, JesusParallax below
